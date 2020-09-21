@@ -13,6 +13,7 @@ function App() {
     photo : ''
   })
   const provider = new firebase.auth.GoogleAuthProvider();
+  //google sign in click handler
   const handleSignIn = ()=>{
     firebase.auth().signInWithPopup(provider)
     .then(res=>{
@@ -30,6 +31,7 @@ function App() {
       console.log(err.message);
     })
   }
+  //google sign out click handler
   const handleSignOut = ()=>{
     firebase.auth().signOut()
     .then(()=>{
@@ -42,6 +44,12 @@ function App() {
       setUser(signOutUser);
     })
     .catch(err=>console.log(err))
+  }
+  const handleChange= (event)=>{
+    console.log(event.target.value);
+  }
+  const handleSubmit = ()=>{
+
   }
   return (
     <div className="App">
@@ -56,6 +64,14 @@ function App() {
                               <img src={user.photo} alt=""/>
                             </div>
       }
+      <h1>Our Own Authentication</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name='email' onChange={handleChange} placeholder='Your Email' required/>
+        <br/>
+        <input type="password" name='password' onChange={handleChange} placeholder='Password' id="" required/>
+        <br/>
+        <input type="submit" value="Submit"/>
+      </form>
     </div>
   );
 }
